@@ -47,8 +47,45 @@ public class Main {
         return memory;
     }
 
+    public static short[] loadHelloWorld() {
+        short[] memory = new short[0xFF];
+        memory[0] = 0x0E;    // LOADPTR
+        memory[1] = 99;
+        memory[2] = 0x0C;    // JZERO
+        memory[3] = 15;
+        memory[4] = 0x0D;    // PRTCHR
+        memory[5] = 0x02;    // LOAD
+        memory[6] = 99;
+        memory[7] = 0x03;    // ADDI
+        memory[8] = 1;
+        memory[9] = 0x01;    // STORE
+        memory[10] = 99;
+        memory[11] = 0x0E;    // LOADPTR
+        memory[12] = 99;
+        memory[13] = 0x0B;    // JGZ
+        memory[14] = 2;
+        memory[15] = 0x00;    // HALT
+        memory[99] = 100;
+        memory[100] = 'H';
+        memory[101] = 'e';
+        memory[102] = 'l';
+        memory[103] = 'l';
+        memory[104] = 'o';
+        memory[105] = ',';
+        memory[106] = ' ';
+        memory[107] = 'W';
+        memory[108] = 'o';
+        memory[109] = 'r';
+        memory[110] = 'l';
+        memory[111] = 'd';
+        memory[112] = '\n';
+        memory[113] = 0x00;  // zero terminating
+        return memory;
+    }
+
+
     public static void main(String...args) {
-        ConsoleComputer consoleComputer = new ConsoleComputer(load4FactorialProgram());
+        ConsoleComputer consoleComputer = new ConsoleComputer(loadHelloWorld());
         while(consoleComputer.executeStep());
     }
 

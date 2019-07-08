@@ -2,20 +2,49 @@ import java.util.Scanner;
 
 public class ConsoleComputer {
 
-    public static final short HALT = 0x00;  // Exit program
-    public static final short STORE = 0x01; // Store AX value to Memory
-    public static final short LOAD = 0x02;  // Load from Memory to AX
-    public static final short ADDI = 0x03;  // Add constant to AX
-    public static final short SUBI = 0x04;  // Subtract constant from AX
-    public static final short ADD = 0x05;   // Add memory value to AX
-    public static final short SUB = 0x06;   // Subtract memory value from AX
-    public static final short MUL = 0x07;   // Multiply memory value with AX
-    public static final short DIV = 0x08;   // Divide AX by memory value
-    public static final short IN = 0x09;    // Read input to AX
-    public static final short OUT = 0x0A;   // Print AX to Output
-    public static final short JGZ = 0x0B;   // Jump if AX greater than zero
-    public static final short JZERO = 0x0C; // Jump if AX equals zero
-    public static final short NOOP = 0xFE;  // Do nothing
+    public static void loadHelloWorld() {
+        short[] memory = new short[0xFF];
+        memory[0] = LOADPTR; // LOADPTR
+        memory[1] = 99;
+        memory[2] = JZERO;   // JZERO
+        memory[3] = 80;
+        memory[4] = PRTCHR;  // PRTCHR
+        memory[5] = JGZ;     // JGZ
+        memory[6] = 0;
+        memory[80] = HALT;   // HALT
+        memory[99] = 100; // string starts at 100
+        memory[100] = 'H';
+        memory[100] = 'e';
+        memory[100] = 'l';
+        memory[100] = 'l';
+        memory[100] = 'o';
+        memory[100] = ',';
+        memory[100] = ' ';
+        memory[100] = 'W';
+        memory[100] = 'o';
+        memory[100] = 'r';
+        memory[100] = 'l';
+        memory[100] = 'd';
+        memory[100] = '!';
+        memory[100] = 0x00;
+    }
+
+    public static final short HALT = 0x00;   // Exit program
+    public static final short STORE = 0x01;  // Store AX value to Memory
+    public static final short LOAD = 0x02;   // Load from Memory to AX
+    public static final short ADDI = 0x03;   // Add constant to AX
+    public static final short SUBI = 0x04;   // Subtract constant from AX
+    public static final short ADD = 0x05;    // Add memory value to AX
+    public static final short SUB = 0x06;    // Subtract memory value from AX
+    public static final short MUL = 0x07;    // Multiply memory value with AX
+    public static final short DIV = 0x08;    // Divide AX by memory value
+    public static final short IN = 0x09;     // Read input to AX
+    public static final short PRTNUM = 0x0A;    // Print AX to Output
+    public static final short JGZ = 0x0B;    // Jump if AX greater than zero
+    public static final short JZERO = 0x0C;  // Jump if AX equals zero
+    public static final short PRTCHR = 0x0D; // Print character
+    public static final short LOADPTR = 0x0E;   // Load dynamic from Memory to AX
+    public static final short NOOP = 0xFE;   // Do nothing
     public static final short ILLEGAL = 0xFF;
 
     Scanner scanner = new Scanner(System.in);
@@ -72,6 +101,11 @@ public class ConsoleComputer {
                 address = fetchAddress();
                 ax = memory[address];
                 break;
+            case LOADPTR:
+                address = fetchAddress();
+                memVal = memory[address];
+                ax = memory[memVal];
+                break;
             case ADDI:
                 constant = fetchConstant();
                 ax += constant;
@@ -105,8 +139,8 @@ public class ConsoleComputer {
                 short input = scanner.nextShort();
                 ax = input;
                 break;
-            case OUT:
-                System.out.println("Output value: " + ax);
+            case PRTNUM:
+                System.out.print(ax);
                 break;
             case JGZ:
                 address = fetchAddress();
@@ -116,6 +150,8 @@ public class ConsoleComputer {
                 address = fetchAddress();
                 if(ax == 0) pc = address;
                 break;
+            case PRTCHR:
+                System.out.print((char)ax);
             case HALT:
             case NOOP:
                 break;
