@@ -1,3 +1,5 @@
+package app.sagen.consolecomputer;
+
 import java.util.Scanner;
 
 public class ConsoleComputer {

@@ -1,19 +1,23 @@
+package app.sagen.consolecomputer;
+
+import static app.sagen.consolecomputer.ConsoleComputer.*;
+
 public class Main {
 
     public static short[] loadAdditionAndCountProgram() {
         short[] memory = new short[0xFF];
-        memory[0] = 0x02;   // LOAD
-        memory[1] = 254;    // [254]
-        memory[2] = 0X09;   // IN
-        memory[3] = 0X05;   // ADD
-        memory[4] = 254;    // [254]
-        memory[5] = 0X0A;   // IN
-        memory[6] = 0X04;   // SUBI
-        memory[7] = 1;      // 1
-        memory[8] = 0x0B;   // JGZ
-        memory[9] = 4;      // 4
-        memory[19] = 0x00;  // HALT
-        memory[254] = 5;    // 5
+        memory[0] = LOAD;
+        memory[1] = 254;
+        memory[2] = IN;
+        memory[3] = ADD;
+        memory[4] = 254;
+        memory[5] = IN;
+        memory[6] = SUBI;
+        memory[7] = 1;
+        memory[8] = JGZ;
+        memory[9] = 4;
+        memory[19] = HALT;
+        memory[254] = 5;
         return memory;
     }
 
@@ -49,22 +53,22 @@ public class Main {
 
     public static short[] loadHelloWorld() {
         short[] memory = new short[0xFF];
-        memory[0] = 0x0E;    // LOADPTR
+        memory[0] = LOADPTR;
         memory[1] = 99;
-        memory[2] = 0x0C;    // JZERO
+        memory[2] = JZERO;
         memory[3] = 15;
-        memory[4] = 0x0D;    // PRTCHR
-        memory[5] = 0x02;    // LOAD
+        memory[4] = PRTCHR;
+        memory[5] = LOAD;
         memory[6] = 99;
-        memory[7] = 0x03;    // ADDI
+        memory[7] = ADDI;
         memory[8] = 1;
-        memory[9] = 0x01;    // STORE
+        memory[9] = STORE;
         memory[10] = 99;
-        memory[11] = 0x0E;    // LOADPTR
+        memory[11] = LOADPTR;
         memory[12] = 99;
-        memory[13] = 0x0B;    // JGZ
+        memory[13] = JGZ;
         memory[14] = 2;
-        memory[15] = 0x00;    // HALT
+        memory[15] = HALT;
         memory[99] = 100;
         memory[100] = 'H';
         memory[101] = 'e';
@@ -79,7 +83,7 @@ public class Main {
         memory[110] = 'l';
         memory[111] = 'd';
         memory[112] = '\n';
-        memory[113] = 0x00;  // zero terminating
+        memory[113] = 0x00;  // zero terminating string
         return memory;
     }
 
