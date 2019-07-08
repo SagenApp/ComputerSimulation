@@ -2,33 +2,6 @@ import java.util.Scanner;
 
 public class ConsoleComputer {
 
-    public static void loadHelloWorld() {
-        short[] memory = new short[0xFF];
-        memory[0] = LOADPTR; // LOADPTR
-        memory[1] = 99;
-        memory[2] = JZERO;   // JZERO
-        memory[3] = 80;
-        memory[4] = PRTCHR;  // PRTCHR
-        memory[5] = JGZ;     // JGZ
-        memory[6] = 0;
-        memory[80] = HALT;   // HALT
-        memory[99] = 100; // string starts at 100
-        memory[100] = 'H';
-        memory[100] = 'e';
-        memory[100] = 'l';
-        memory[100] = 'l';
-        memory[100] = 'o';
-        memory[100] = ',';
-        memory[100] = ' ';
-        memory[100] = 'W';
-        memory[100] = 'o';
-        memory[100] = 'r';
-        memory[100] = 'l';
-        memory[100] = 'd';
-        memory[100] = '!';
-        memory[100] = 0x00;
-    }
-
     public static final short HALT = 0x00;   // Exit program
     public static final short STORE = 0x01;  // Store AX value to Memory
     public static final short LOAD = 0x02;   // Load from Memory to AX
