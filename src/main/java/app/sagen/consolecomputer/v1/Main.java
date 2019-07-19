@@ -1,28 +1,26 @@
-package app.sagen.consolecomputer;
-
-import static app.sagen.consolecomputer.ConsoleComputer.*;
+package app.sagen.consolecomputer.v1;
 
 public class Main {
 
-    public static short[] loadAdditionAndCountProgram() {
-        short[] memory = new short[0xFF];
-        memory[0] = LOAD;
+    public static int[] loadAdditionAndCountProgram() {
+        int[] memory = new int[0xFF];
+        memory[0] = ConsoleComputer.LOAD;
         memory[1] = 254;
-        memory[2] = IN;
-        memory[3] = ADD;
+        memory[2] = ConsoleComputer.IN;
+        memory[3] = ConsoleComputer.ADD;
         memory[4] = 254;
-        memory[5] = IN;
-        memory[6] = SUBI;
+        memory[5] = ConsoleComputer.IN;
+        memory[6] = ConsoleComputer.SUBI;
         memory[7] = 1;
-        memory[8] = JGZ;
+        memory[8] = ConsoleComputer.JGZ;
         memory[9] = 4;
-        memory[19] = HALT;
+        memory[19] = ConsoleComputer.HALT;
         memory[254] = 5;
         return memory;
     }
 
-    public static short[] load4FactorialProgram() {
-        short[] memory = new short[0xFF];
+    public static int[] load4FactorialProgram() {
+        int[] memory = new int[0xFF];
         memory[0] = 0x02;
         memory[1] = 32;
         memory[2] = 0x01;
@@ -51,24 +49,24 @@ public class Main {
         return memory;
     }
 
-    public static short[] loadHelloWorld() {
-        short[] memory = new short[0xFF];
-        memory[0] = LOADPTR;
+    public static int[] loadHelloWorld() {
+        int[] memory = new int[0xFF];
+        memory[0] = ConsoleComputer.LOADPTR;
         memory[1] = 99;
-        memory[2] = JZERO;
+        memory[2] = ConsoleComputer.JZERO;
         memory[3] = 15;
-        memory[4] = PRTCHR;
-        memory[5] = LOAD;
+        memory[4] = ConsoleComputer.PRTCHR;
+        memory[5] = ConsoleComputer.LOAD;
         memory[6] = 99;
-        memory[7] = ADDI;
+        memory[7] = ConsoleComputer.ADDI;
         memory[8] = 1;
-        memory[9] = STORE;
+        memory[9] = ConsoleComputer.STORE;
         memory[10] = 99;
-        memory[11] = LOADPTR;
+        memory[11] = ConsoleComputer.LOADPTR;
         memory[12] = 99;
-        memory[13] = JGZ;
+        memory[13] = ConsoleComputer.JGZ;
         memory[14] = 2;
-        memory[15] = HALT;
+        memory[15] = ConsoleComputer.HALT;
         memory[99] = 100;
         memory[100] = 'H';
         memory[101] = 'e';
@@ -89,7 +87,7 @@ public class Main {
 
 
     public static void main(String...args) {
-        ConsoleComputer consoleComputer = new ConsoleComputer(loadHelloWorld());
+        ConsoleComputer consoleComputer = new ConsoleComputer(load4FactorialProgram());
         while(consoleComputer.executeStep());
     }
 
